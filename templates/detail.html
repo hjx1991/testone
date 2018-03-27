@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+详情-
+{% endblock %}
+
+{% block head %}
+    <style>
+        .question-info{
+            text-align: right;
+        }
+        .question-info{
+    text-align: center;
+    margin-top: 20px;
+    padding-left: 0;
+}
+.answer-list{
+    padding-left: 0;
+}
+.answer-list li{
+    list-style: none;
+    border-bottom: 1px solid #eee;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-info{
+    font-size: 16px;
+    color: #9b9b9b;
+}
+
+.user-info .username{
+    margin-left: 20px;
+}
+
+.user-info .create-time{
+    float: right;
+}
+    </style>
+
+{% endblock %}
+
+
+{% block two %}
+退出
+{% endblock %}
+
+{% block main %}
+    <h3 class="page-title">{{ question.title }}</h3>
+    <p class="question-info">
+        <span>作者:{{ question.author.username }}</span>
+        <span>时间:{{ question.create_time }}</span>
+    </p>
+    <hr>
+    <p class="question-content">{{ question.content}}</p>
+    <hr>
+    <h4>评论:</h4>
+    <form action="{{ url_for('add_answer') }}" method="POST">
+        <div class="form-group">
+            <input type="text" name="answer_content" class="form-control" placeholder="请填写评论"> </input>
+            <input type="hidden" name="question_id" value="{{ question.id }}"> </input>
+        </div>
+        <div class="form-group" style="text-align: right">
+            <button class="btn btn-primary">评论</button>
+        </div>
+    </form>
+
+
+    <ul class="answer-list">
+        {% for answer in question.answers %}
+        <li>
+            <div class="user-info">
+                <img src="{{ url_for('static',filename='images/1.jpg') }}" class="avatar">
+                <span class="username">{{ answer.author.username }}</span>
+                <span class="create-time">2018 0 0 0 0</span>
+                <p class="answer-content">{{ answer.content }}</p>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

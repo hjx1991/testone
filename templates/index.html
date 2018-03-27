@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block title %}首页{% endblock %}
+
+{% block one %}登录{% endblock %}
+
+{% block two %}注册{% endblock %}
+
+
+{% block main %}
+{% for i in questions %}
+    <div class="bs-example" data-example-id="media-alignment">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+
+                    <img class="media-object" src="{{ url_for('static',filename='images/1.jpg') }}">
+                </a>
+            </div>
+            <div class="media-body">
+
+                    <h4 class="media-heading"><a href="{{ url_for('detail',question_id=i.id) }}">{{ i.title }}</a></h4>
+                    <hr>
+                    <p>{{ i.content }}</p>
+                    <p>{{ i.author.username }},{{ i.create_time }}</p>
+                    <hr>
+                    </div>
+
+        </div>
+
+    </div>
+{% endfor %}
+{% endblock %}
